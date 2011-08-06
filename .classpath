@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="lib/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="lib/asm.jar"/>
+	<classpathentry kind="lib" path="lib/c3p0-0.9.1.jar"/>
+	<classpathentry kind="lib" path="lib/cglib-2.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/concurrent-1.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/ehcache-1.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-commons-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate3.jar" sourcepath="C:/Downloads/Java/hibernate/hibernate-3.2.6.ga/hibernate-3.2/src"/>
+	<classpathentry kind="lib" path="lib/javassist.jar"/>
+	<classpathentry kind="lib" path="lib/jaxen-1.1-beta-7.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-cache.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-common.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-jmx.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-system.jar"/>
+	<classpathentry kind="lib" path="lib/jgroups-2.2.8.jar"/>
+	<classpathentry kind="lib" path="lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.11.jar"/>
+	<classpathentry kind="lib" path="lib/spring.jar" sourcepath="C:/Downloads/Java/spring/spring-framework-2.5.6-with-dependencies/spring-framework-2.5.6/src"/>
+	<classpathentry kind="lib" path="lib/xerces-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-tools.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/freemarker.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/jstl-api-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jstl-impl-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-api-1.2.7.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-impl-1.2.7.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-entitymanager-3.4.0.GA.jar"/>
+	<classpathentry kind="lib" path="lib/jcaptcha-1.0-all.jar"/>
+	<classpathentry kind="lib" path="lib/caelum-stella-boleto-1.2.jar" sourcepath="E:/Arquivos/caelum/caelum-stella-1.2-src.tar.gz/caelum-stella-1.2-src/caelum-stella-1.2-src"/>
+	<classpathentry kind="lib" path="lib/caelum-stella-core-1.2.jar" sourcepath="E:/Arquivos/caelum/caelum-stella-1.2-src.tar.gz/caelum-stella-1.2-src/caelum-stella-1.2-src"/>
+	<classpathentry kind="lib" path="lib/itext-2.1.0.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

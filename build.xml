@@ -1,0 +1,96 @@
+<project name="abstract-player" default="build" basedir=".">
+
+	<property name="dir.lib" value="lib" />
+	<property name="dir.src" value="src" />
+	<property name="dir.build" value="build" />
+	<property name="dir.oc" value="${dir.build}/javadoc" />
+	<property name="dir.out.classes" value="${dir.build}/classes" />
+
+	<property name="javac.debug" value="on"/>
+	<property name="javac.optimize" value="off"/>
+	<property name="javac.target" value="1.6"/>
+	<property name="javac.source" value="1.6"/>
+	
+	<property name="version.full" value="0.1"/>
+	<property name="hibernate.version" value="3.2.6"/>
+	<property name="hibernate.annotation.version" value="3.3.0"/>
+
+
+	<fileset id="fs.lib" dir="${dir.lib}">
+		<include name="**/*.jar" />
+	</fileset>
+
+	<path id="path.lib">
+		<fileset refid="fs.lib" />
+	</path>
+
+	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" 
+		         classpathref="path.lib" />
+
+	<target name="compile">
+		<mkdir dir="${dir.out.classes}"/>
+		<available classname="org.eclipse.core.launcher.Main" property="build.compiler"
+			value="org.eclipse.jdt.core.JDTCompilerAdapter" classpath="${java.class.path}"/>
+
+		<javac destdir="${dir.out.classes}"
+		               classpathref="path.lib"
+		               debug="${javac.debug}"
+		               optimize="${javac.optimize}"
+		               target="${javac.target}" 
+					   srcdir="${dir.src}"
+		               />
+		<copy todir="${dir.out.classes}">
+			<fileset dir="${dir.src}">
+				<include name="**/*.dtd" />
+				<include name="**/*.xml" />
+				<include name="**/*.xslt" />
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="clean_all">
+		<delete dir="${dir.build}/classes"/>
+		<delete dir="${dir.build}/generated"/>
+		<delete file="${dir.build}/abstract-player.jar"/>
+	</target>
+
+	<target name="jar">
+		<mkdir dir="${dir.build}/outjar"/>
+		<copydir dest="${dir.build}/outjar" src="${dir.build}/classes"/>
+
+		<jar jarfile="${dir.build}/abstract-player.jar" basedir="${dir.build}/outjar">
+			<exclude name="**/*.xml"/>
+			<exclude name="**/*.properties"/>
+			<manifest>
+				<attribute name="Implementation-Title" value="Hibernate persistence layer util"/>
+				<attribute name="Implementation-Version" value="${version.full}"/>
+				<attribute name="Implementation-Vendor" value="HOME"/>
+				<attribute name="Hibernate-Version" value="${hibernate.version}"/>
+				<attribute name="Hibernate-Annotation-Version" value="${hibernate.annotation.version}"/>
+			</manifest>
+		</jar>
+		<delete dir="${dir.build}/outjar"/>
+	</target>
+	
+	<taskdef name="hibernatetool" 
+	         classname="org.hibernate.tool.ant.HibernateToolTask" 
+	         classpathref="path.lib" />
+
+	<target name="generate" depends="compile">
+		<hibernatetool destdir="${dir.build}/generated">
+			<classpath>
+				<path location="${dir.out.classes}"></path>
+			</classpath>
+			<annotationconfiguration propertyfile="${dir.out.classes}/hibernate.properties"  configurationfile="${dir.out.classes}/hibernate.cfg.xml" />
+			<hbm2ddl drop="true" create="true" export="true" outputfilename="../schema.sql" delimiter=";" format="true" />
+			<hbm2dao />
+		</hibernatetool>
+	</target>
+	
+	<target name="build" depends="compile,jar"/>
+	
+	<!-- a task generate inclui a task compile como dependente -->
+	<target name="build.with.database.schema" depends="generate, jar"/>
+	
+</project>

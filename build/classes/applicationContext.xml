@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url">
+            <value>jdbc:mysql://127.0.0.1:3306/commons_database</value>
+        </property>
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password">
+            <value>root</value>
+        </property>
+    </bean>
+    
+    <bean id="sessionFactory" singleton="true" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        
+        <property name="dataSource">
+            <ref local="dataSource"/>
+        </property>
+        
+        <property name="useTransactionAwareDataSource" value="true" />
+
+        <!-- Lista de mapeamento -->
+        <property name="annotatedClasses">
+            <list>
+                <value>br.com.abstractlayer.persistence.pojo.Municipio</value>  
+            </list>
+        </property>
+        
+        <property name="hibernateProperties">
+            <props>
+                <!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
+                <prop key="hibernate.connection.pool_size">4</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>
+                <prop key="hibernate.jdbc.batch_size">30</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.generate_statistics">true</prop>
+                <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+                <prop key="hibernate.order_updates">true</prop>
+                <prop key="hibernate.max_fetch_depth">1</prop>
+                <prop key="hibernate.default_batch_fetch_size">1</prop>
+                <prop key="hibernate.jdbc.batch_versioned_data">true</prop>
+                <prop key="hibernate.jdbc.use_streams_for_binary">true</prop>
+                <prop key="hibernate.cache.region_prefix">hibernate.test</prop>
+                <prop key="hibernate.cache.use_query_cache">true</prop>
+                <prop key="hibernate.connection.autocommit">false</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+
+                <!-- c3p0 -->
+                <prop key="hibernate.c3p0.max_size">20</prop>
+                <prop key="hibernate.c3p0.min_size">3</prop>
+                <prop key="hibernate.c3p0.timeout">900</prop>
+                <prop key="hibernate.c3p0.max_statements">10</prop>
+                <prop key="hibernate.c3p0.idle_test_period">3000</prop>
+                <prop key="hibernate.c3p0.acquire_increment">2</prop>
+            </props>
+        </property>
+	</bean>
+
+
+
+
+    <!-- Configuracao dos DAOs -->
+    <bean id="genericDao" class="br.com.abstractlayer.persistence.dao.GenericDaoImpl" singleton="true">
+        <property name="sessionFactory">
+            <ref local="sessionFactory" />
+        </property>
+    </bean>
+    <!--  -->
+
+
+
+    
+    <!-- Configuracoes das classes da regra de negocio -->
+    <!-- 
+    <bean id="autenticarUsuario" class="br.org.university.ead.base.rules.AutenticationRule">
+    	<constructor-arg index="0">
+    		<ref bean="userDao"/>
+    	</constructor-arg>
+    </bean>
+     -->
+    <!--  -->
+    
+    
+    
+    
+        
+    <!-- Configurar Transacoes -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref local="sessionFactory"/>
+        </property>
+    </bean>
+    
+    <bean id="daoGenericTransaction" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref local="transactionManager" />
+        </property>    
+        <property name="target">
+            <ref local="genericDao" />
+        </property>
+        <property name="proxyTargetClass" value="true"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+                <prop key="update*">PROPAGATION_REQUIRED</prop>
+                <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="read*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean>
+    
+</beans>
